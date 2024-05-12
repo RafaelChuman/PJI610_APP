@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">PJI610</string>
+    <string name="user">Usuário</string>
+
+    <string name="name">Nome</string>
+    <string name="password">Senha</string>
+    <string name="smartphone">Celular</string>
+    <string name="telegram">Telegram</string>
+    <string name="email">E-Mail</string>
+
+    <string name="Address">Endereço</string>
+
+    <string name="imgProduct">Imagem do Produto</string>
+
+    <string name="description">Descrição</string>
+    <string name="value">Valor</string>
+
+    <string name="logOut">Logout</string>
+    <string name="logIn">Login</string>
+    <string name="remove">Remover</string>
+    <string name="save">Salvar</string>
+
+    <string name="add">Adicionar</string>
+    <string name="addUser">Adicionar Usuário</string>
+
+    <string name="edit">Editar</string>
+    <string name="upload">Carregar</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+</resources>
