@@ -27,8 +27,6 @@ class LoginActivity : AppCompatActivity() {
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
     }
 
 
@@ -42,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 ToastMessage("Login Successful.")
-                //RedirectTo(ListaProdutosActivity::class.java)
+                RedirectTo(IoTActivity::class.java)
 
                 //finish()
             } ?: ToastMessage("Falha na autenticação.")

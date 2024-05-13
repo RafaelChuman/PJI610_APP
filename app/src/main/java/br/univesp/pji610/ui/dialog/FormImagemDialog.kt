@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import br.univesp.pji610.databinding.FormImagemBinding
-import br.univesp.pji610.extensions.tentaCarregarImagem
+import br.univesp.pji610.extensions.loadImageFromPath
 
 class FormImagemDialog(private val context: Context) {
 
@@ -15,13 +15,13 @@ class FormImagemDialog(private val context: Context) {
         FormImagemBinding.inflate(LayoutInflater.from(context)).apply {
 
                 urlPadrao?.let {
-                    formImagemImageview.tentaCarregarImagem(it)
+                    formImagemImageview.loadImageFromPath(it)
                     formImagemUrl.setText(it)
                 }
 
                 formImagemBotaoCarregar.setOnClickListener {
                     val url = formImagemUrl.text.toString()
-                    formImagemImageview.tentaCarregarImagem(url)
+                    formImagemImageview.loadImageFromPath(url)
                 }
 
                 AlertDialog.Builder(context)

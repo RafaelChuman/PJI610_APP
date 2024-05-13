@@ -11,7 +11,7 @@ import br.univesp.pji610.R
 import br.univesp.pji610.database.DataSource
 import br.univesp.pji610.database.model.Nota
 import br.univesp.pji610.databinding.ActivityFormNotaBinding
-import br.univesp.pji610.extensions.tentaCarregarImagem
+import br.univesp.pji610.extensions.loadImageFromPath
 import br.univesp.pji610.repository.NotaRepository
 import br.univesp.pji610.ui.dialog.FormImagemDialog
 import br.univesp.pji610.webclient.NotaWebClient
@@ -56,7 +56,7 @@ class FormNotaActivity : AppCompatActivity() {
                 if (imagemNova.isNullOrBlank())
                     GONE
                 else {
-                    imagemNota.tentaCarregarImagem(imagemNova)
+                    imagemNota.loadImageFromPath(imagemNova)
                     VISIBLE
                 }
         }
@@ -85,7 +85,7 @@ class FormNotaActivity : AppCompatActivity() {
             FormImagemDialog(this)
                 .mostra(imagem.value) { imagemCarregada ->
                     binding.activityFormNotaImagem
-                        .tentaCarregarImagem(imagemCarregada)
+                        .loadImageFromPath(imagemCarregada)
                     imagem.value = imagemCarregada
                 }
         }

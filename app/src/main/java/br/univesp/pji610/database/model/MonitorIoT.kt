@@ -5,16 +5,15 @@ import androidx.room.PrimaryKey
 import java.util.UUID
 
 @Entity
-data class User(
+data class MonitorIoT(
     @PrimaryKey(autoGenerate = false)
     val id: String= UUID.randomUUID().toString(),
     val name: String,
-    val userName: String,
-    val password: String,
-    val imgPath: String,
-    val email: String,
-    val celular: Double,
-    val telegram: String,
-    val isAdmin: Boolean,
+    val temperature: Double,
+    val humidity: Double,
+    val noBreak: Double,
+    val userId: String,
+    val ioTId: String,
+    val rescueGroupId: String,
     val createdAt: String,
 )

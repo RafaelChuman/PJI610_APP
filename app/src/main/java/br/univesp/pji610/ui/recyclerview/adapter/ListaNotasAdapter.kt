@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.univesp.pji610.database.model.Nota
 import br.univesp.pji610.databinding.NotaItemBinding
-import br.univesp.pji610.extensions.tentaCarregarImagem
+import br.univesp.pji610.extensions.loadImageFromPath
 
 class ListaNotasAdapter(
     private val context: Context,
@@ -40,7 +40,7 @@ class ListaNotasAdapter(
                 if (nota.imagem.isNullOrBlank()) {
                     GONE
                 } else {
-                    imagemNota.tentaCarregarImagem(nota.imagem)
+                    imagemNota.loadImageFromPath(nota.imagem)
                     VISIBLE
                 }
             binding.notaItemTitulo.text = nota.titulo

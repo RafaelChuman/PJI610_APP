@@ -4,7 +4,7 @@ import android.widget.ImageView
 import br.univesp.pji610.R
 import coil.load
 
-fun ImageView.tentaCarregarImagem(
+fun ImageView.loadImageFromPath(
     url: String? = null,
     fallback: Int = R.drawable.imagem_padrao
 ) {

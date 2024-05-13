@@ -25,5 +25,4 @@ interface UserDao {
 
     @Query("SELECT * FROM User WHERE id = :userId")
     fun getById(userId: String): Flow<User>?
-
 }

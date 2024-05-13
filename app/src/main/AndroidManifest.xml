@@ -13,6 +13,9 @@
         android:theme="@style/Theme.pji610"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.activity.IoTActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.AuthBaseActivity"
             android:exported="false" />
         <activity
