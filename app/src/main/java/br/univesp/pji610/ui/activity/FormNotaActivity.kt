@@ -13,7 +13,7 @@ import br.univesp.pji610.database.model.Nota
 import br.univesp.pji610.databinding.ActivityFormNotaBinding
 import br.univesp.pji610.extensions.loadImageFromPath
 import br.univesp.pji610.repository.NotaRepository
-import br.univesp.pji610.ui.dialog.FormImagemDialog
+import br.univesp.pji610.ui.dialog.ImageDialog
 import br.univesp.pji610.webclient.NotaWebClient
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -82,11 +82,11 @@ class FormNotaActivity : AppCompatActivity() {
 
     private fun configuraImagem() {
         binding.activityFormNotaAdicionarImagem.setOnClickListener {
-            FormImagemDialog(this)
-                .mostra(imagem.value) { imagemCarregada ->
+            ImageDialog(this)
+                .show(imagem.value) { imageLoaded ->
                     binding.activityFormNotaImagem
-                        .loadImageFromPath(imagemCarregada)
-                    imagem.value = imagemCarregada
+                        .loadImageFromPath(imageLoaded)
+                    imagem.value = imageLoaded
                 }
         }
     }

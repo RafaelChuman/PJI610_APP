@@ -7,27 +7,30 @@ import android.view.MenuItem
 import androidx.lifecycle.lifecycleScope
 import br.univesp.pji610.R
 import br.univesp.pji610.database.DataSource
-import br.univesp.pji610.database.model.IoT_GroupIoT
-import br.univesp.pji610.databinding.ActivityIotBinding
+import br.univesp.pji610.database.model.GroupIoT
+import br.univesp.pji610.databinding.ActivityGroupIotBinding
 import br.univesp.pji610.extensions.RedirectTo
-import br.univesp.pji610.ui.recyclerview.IoTRecycleView
+import br.univesp.pji610.ui.recyclerview.GroupIotRecycleView
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
-class IoTActivity : AuthBaseActivity() {
+class GroupIotActivity : AuthBaseActivity() {
 
-    private val adapter = IoTRecycleView(context = this)
+    private val adapter = GroupIotRecycleView(context = this)
+
     private val binding by lazy {
-        ActivityIotBinding.inflate(layoutInflater)
+        ActivityGroupIotBinding.inflate(layoutInflater)
     }
-    private val ioTDao by lazy {
-        DataSource.instance(this).iotTDAO()
+
+    private val groupIoTDao by lazy {
+        DataSource.instance(this).groupIoTDAO()
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_iot)
+        setContentView(R.layout.activity_group_iot)
 
         configRecyclerView()
 
@@ -37,10 +40,11 @@ class IoTActivity : AuthBaseActivity() {
             launch {
                 user.filterNotNull()
                     .collect { usr ->
-                        getAllIoTOfUser(usr.id)
+                        getAllGroupIoTOfUser(usr.id)
                     }
             }
         }
+
     }
 
 
@@ -60,31 +64,31 @@ class IoTActivity : AuthBaseActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private suspend fun getAllIoTOfUser(userId: String) {
-        ioTDao.getAllByUser(userId).collect { iot ->
-            adapter.update(iot)
+
+    private suspend fun getAllGroupIoTOfUser(userId: String) {
+        groupIoTDao.getAllByUser(userId).collect { groupIot ->
+            adapter.update(groupIot)
         }
     }
+
 
     private fun setFab() {
-        val fab = binding.activityIotActivityFloatingButton
+        val fab = binding.activityGroupIotFab
         fab.setOnClickListener {
-            RedirectTo(IotMgmtActivity::class.java)
+            RedirectTo(GroupIotMgmtActivity::class.java)
         }
     }
 
-
     private fun configRecyclerView() {
-        binding.activityIotActivityRecyclerView.adapter = adapter
-        adapter.ioTOnClickEvent = {
+        binding.activityGroupIotRecyclerview.adapter = adapter
+        adapter.groupIotOnClickEvent = {
             val intent = Intent(
                 this,
-                IoT_GroupIoT::class.java
+                GroupIoT::class.java
             ).apply {
-                putExtra(IOT_ID, it.ioT.id)
+                putExtra(GROUP_IOT_ID, it.id)
             }
             startActivity(intent)
         }
     }
-
 }

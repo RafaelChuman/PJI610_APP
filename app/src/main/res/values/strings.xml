@@ -13,6 +13,10 @@
     <string name="imgProduct">Imagem do Produto</string>
 
     <string name="description">Descrição</string>
+
+    <string name="iot">IoT</string>
+    <string name="group">Grupo</string>
+
     <string name="value">Valor</string>
 
     <string name="logOut">Logout</string>

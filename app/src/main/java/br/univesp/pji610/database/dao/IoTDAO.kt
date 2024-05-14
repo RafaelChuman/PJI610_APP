@@ -25,6 +25,18 @@ interface IoTDAO {
         userId: String,
     ): Flow<List<IoT_GroupIoT>>
 
+    @Query(
+        """
+        SELECT * 
+        FROM IoT 
+        WHERE id = :iotId"""
+    )
+    fun getById(
+        iotId: String,
+    ): Flow<IoT>?
+
+    @Query("DELETE FROM IoT WHERE id = :id")
+    suspend fun remove(id: String)
 
     @Query("""SELECT * FROM IoT """)
     suspend fun getAll(): IoT?
