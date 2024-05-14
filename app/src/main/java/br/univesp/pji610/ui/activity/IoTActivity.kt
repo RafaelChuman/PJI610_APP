@@ -1,90 +1,88 @@
 package br.univesp.pji610.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import br.univesp.pji610.R
+import androidx.lifecycle.repeatOnLifecycle
 import br.univesp.pji610.database.DataSource
-import br.univesp.pji610.database.model.IoT_GroupIoT
-import br.univesp.pji610.databinding.ActivityIotActivityBinding
+import br.univesp.pji610.databinding.ActivityIotBinding
 import br.univesp.pji610.extensions.RedirectTo
 import br.univesp.pji610.ui.recyclerview.IoTRecycleView
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
 class IoTActivity : AuthBaseActivity() {
 
-    private val adapter = IoTRecycleView(context = this)
     private val binding by lazy {
-        ActivityIotActivityBinding.inflate(layoutInflater)
+        ActivityIotBinding.inflate(layoutInflater)
     }
+
+    private val adapter by lazy {
+        IoTRecycleView(this)
+    }
+
     private val ioTDao by lazy {
-       DataSource.instance(this).iotTDAO()
+        DataSource.instance(this).iotTDAO()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_iot_activity)
+        setContentView(binding.root)
 
         configRecyclerView()
-        configuraFab()
+
         lifecycleScope.launch {
-            launch {
-                user.filterNotNull()
-                    .collect { usr ->
-                        getAllIoTOfUser(usr.id)
-                    }
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                getAllIoTOfUser("")
             }
         }
     }
 
-
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.iot_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.iot_menu_logout -> {
-                lifecycleScope.launch {
-                    logout()
-                }
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+//
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.iot_menu, menu)
+//        return super.onCreateOptionsMenu(menu)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        when (item.itemId) {
+//            R.id.iot_menu_logout -> {
+//                lifecycleScope.launch {
+//                    logout()
+//                }
+//            }
+//        }
+//        return super.onOptionsItemSelected(item)
+//    }
 
     private suspend fun getAllIoTOfUser(userId: String) {
-        ioTDao.getAllByUser(userId).collect { iot ->
-            adapter.update(iot)
-        }
+        ioTDao.getAll()
+            .collect { items ->
+                binding.activityIotActivityTextView.visibility =
+                    if (items.isEmpty()) {
+                        binding.activityIotActivityRecyclerView.visibility = GONE
+                        VISIBLE
+                    } else {
+                        binding.activityIotActivityRecyclerView.visibility = VISIBLE
+                        adapter.update(items)
+                        GONE
+                    }
+            }
     }
 
-    private fun configuraFab() {
-        val fab = binding.activityIotActivityFloatingButton
-        fab.setOnClickListener {
-            RedirectTo(FormNotaActivity::class.java)
-        }
+    fun setFab(view: View) {
+        RedirectTo(IotMgmtActivity::class.java)
     }
-
-
 
     private fun configRecyclerView() {
-        val recyclerView = binding.activityIotActivityRecyclerView
-        recyclerView.adapter = adapter
-        adapter.ioTOnClickEvent = {
-            val intent = Intent(
-                this,
-                IoT_GroupIoT::class.java
-            ).apply {
-                putExtra(IOT_ID, it.ioT.id)
+        binding.activityIotActivityRecyclerView.adapter = adapter
+        adapter.iotOnClickEvent = { iot ->
+            RedirectTo(IotMgmtActivity::class.java) {
+                putExtra(IOT_ID, iot.id)
             }
-            startActivity(intent)
         }
     }
 

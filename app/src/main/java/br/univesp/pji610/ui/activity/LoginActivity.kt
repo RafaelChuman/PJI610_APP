@@ -39,7 +39,6 @@ class LoginActivity : AppCompatActivity() {
                     preferences[userPreferences] = user.id
                 }
 
-                ToastMessage("Login Successful.")
                 RedirectTo(IoTActivity::class.java)
 
                 //finish()
@@ -57,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun addUserOnClick(view: View) {
         binding.activityLoginButtonAddUser.setOnClickListener {
-            RedirectTo(InsertUserActivity::class.java)
+            RedirectTo(ChartActivity::class.java)
         }
     }
 }

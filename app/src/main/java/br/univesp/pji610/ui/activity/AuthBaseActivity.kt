@@ -2,6 +2,7 @@ package br.univesp.pji610.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +13,7 @@ import br.univesp.pji610.extensions.dataStore
 import br.univesp.pji610.extensions.userPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
@@ -34,7 +36,7 @@ abstract class AuthBaseActivity : AppCompatActivity() {
     private suspend fun checkAuthentication() {
         dataStore.data.collect { preferences ->
             preferences[userPreferences]?.let { userId ->
-                (userId)
+                getUserById(userId)
             } ?: redirectToLogin()
         }
     }

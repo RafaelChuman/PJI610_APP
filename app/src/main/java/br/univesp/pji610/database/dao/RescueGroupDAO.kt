@@ -9,7 +9,7 @@ import br.univesp.pji610.database.model.RescueGroup
 interface RescueGroupDAO {
 
     @Insert
-    suspend fun save(rescueGroup: RescueGroup)
+    suspend fun save(rescueGroup: RescueGroup):Long
 
     @Query("""SELECT * FROM RescueGroup """)
     suspend fun getAll(): RescueGroup?

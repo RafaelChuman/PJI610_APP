@@ -1,5 +1,4 @@
 package br.univesp.pji610.ui.recyclerview.adapter
-
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View.GONE
